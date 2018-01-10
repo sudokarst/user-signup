@@ -32,12 +32,11 @@ def validate():
     #
     username = request.form["username"].strip() # remove whitespace
     username_invalid = "username "
-
     if not (3 <= len(username) <= 20):
-        username_invalid += " must be 3-20 characters long"
+        username_invalid += "must be 3-20 characters long "
         validated = False
     if ' ' in username:
-        username_invalid += " cannot contain spaces"
+        username_invalid += "cannot contain spaces "
         validated = False
     if username_invalid == "username ":
         username_invalid = ""
@@ -49,20 +48,42 @@ def validate():
     password2 = request.form["password2"]
     password_invalid = "password "
     if not (3 <= len(password) <= 20):
-        password_invalid += " must be 3-20 characters long"
+        password_invalid += "must be 3-20 characters long "
         validated = False
     if ' ' in password:
-        password_invalid += " cannot contain spaces"
+        password_invalid += "cannot contain spaces "
         validated = False
     if password != password2:
-        password2_invalid = "passwords must match!"
+        password2_invalid = "passwords must match! "
         validated = False
+    if password_invalid == "password ":
+        password_invalid = ""
+
 
 
     #
     # email validation
     #
     email = request.form["email"].strip()
+    if email:
+        email_invalid = "email "
+        email_validated = True
+        if not (3 <= len(email) <= 20):
+            email_invalid += "must be 3-20 characters long "
+            validated = False
+        if ' ' in email:
+            email_invalid += "cannot contain spaces "
+            validated = False
+        # one each:
+        for good_char in ['@', '.']:
+            if email.count(good_char) > 1:
+                email_invalid += "cannot contain more than 1 {} ".format(good_char)
+                validated = False
+            elif email.count(good_char) < 1:
+                email_invalid += "must contain 1 {} ".format(good_char)
+                validated = False
+        if email_invalid == "email ":
+            email_invalid = ""
 
     #
     # git 'er done
