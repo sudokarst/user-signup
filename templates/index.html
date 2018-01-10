@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Index{% endblock %}
+{% block title %}User Signup{% endblock %}
 {% block head %}
     {{ super() }}
     <style type="text/css">
@@ -17,12 +17,12 @@
         </tr>
         <tr>
             <td><label for="password">Password:</label></td>
-            <td><input name="password">
+            <td><input name="password" type="password">
                 <span class="error">{{password_invalid}}</span></td>
         </tr>
         <tr>
             <td><label for="password2">Verify Password:</label></td>
-            <td><input name="password2">
+            <td><input name="password2" type="password">
                 <span class="error">{{password2_invalid}}</span></td>
         </tr>
         <tr>

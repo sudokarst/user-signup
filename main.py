@@ -20,21 +20,47 @@ def index():
 def validate():
     global username
     validated = True
+
+    #
+    # username validation
+    #
     username = request.form["username"].strip() # remove whitespace
     username_invalid = "username "
+
     if not (3 <= len(username) <= 20):
         username_invalid += " must be 3-20 characters long"
         validated = False
-    elif ' ' in username:
+    if ' ' in username:
         username_invalid += " cannot contain spaces"
         validated = False
-    else:
+    if username_invalid == "username ":
         username_invalid = ""
     
+    #
+    # password validation
+    #
     password = request.form["password"]
     password2 = request.form["password2"]
-    email = request.form["email"]
+    password_invalid = "password "
+    if not (3 <= len(password) <= 20):
+        password_invalid += " must be 3-20 characters long"
+        validated = False
+    if ' ' in password:
+        password_invalid += " cannot contain spaces"
+        validated = False
+    if password != password2:
+        password2_invalid = "passwords must match!"
+        validated = False
 
+
+    #
+    # email validation
+    #
+    email = request.form["email"].strip()
+
+    #
+    # git 'er done
+    #
     if validated:
         return redirect("/welcome")
     else:
